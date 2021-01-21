@@ -1,5 +1,6 @@
 import {GLTFLoader} from '../node_modules/three/examples/jsm/loaders/GLTFLoader.js'
 import * as THREE from '../node_modules/three/build/three.module.js';
+import {OrbitControls} from '../node_modules/three/examples/jsm/controls/OrbitControls.js'
 
 									/** Initializing all necessary variables */
 // initialize scene
@@ -14,9 +15,9 @@ const camera = new THREE.PerspectiveCamera(
 	 );
 
 //Initialize lights
-//const Amblight = new THREE.AmbientLight(0x404040, 5);
-//scene.add(Amblight);
-  const directionalLight = new THREE.DirectionalLight(0xffffff, 100);
+// const Amblight = new THREE.AmbientLight(0x404040, 5);
+// scene.add(Amblight);
+  const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
   directionalLight.position.set(0, 1, 0);
   directionalLight.castShadow = true;
   scene.add(directionalLight);				
@@ -33,19 +34,22 @@ scene.add(pointlight1);
 // pointlight4.position.set(-500,300,500);
 // scene.add(pointlight4);
 
-camera.rotation.x = -96.07;
-camera.rotation.y = -57.87;
-camera.rotation.z = -65.21;
+//camera.rotation.x = -96.07;
+camera.rotation.y = (270/180) * Math.PI;
+//camera.rotation.z = -65.21;
 camera.position.x = -17.756;
 camera.position.y = 3.795;
 camera.position.z = -0.403;
 scene.add(camera);
 
+
 const renderer = new THREE.WebGLRenderer( { antialias:true } );
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);	
 //Initialize GLTF Loader
-							
+
+let controls = new OrbitControls(camera, renderer.domElement);
+controls.addEventListener("change", renderer);
 
 // Initialize Renderer
 		
